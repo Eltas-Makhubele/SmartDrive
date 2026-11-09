@@ -1,36 +1,106 @@
 
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
 function App() {
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const closeMenu = () => setMenuOpen(false);
+
+    const features = [
+        {
+            icon: '📅',
+            title: 'Lesson Bookings',
+            description: 'Book driving lessons, manage schedules and keep track of upcoming sessions.'
+        },
+        {
+            icon: '📋',
+            title: 'Digital Attendance',
+            description: 'Record practical lessons and access attendance records whenever needed.'
+        },
+        {
+            icon: '📈',
+            title: 'Learning Progress',
+            description: 'Monitor driving performance and track completed practical lessons.'
+        },
+        {
+            icon: '👨‍🏫',
+            title: 'Instructor Management',
+            description: 'Manage instructors, lesson schedules and student assignments.'
+        },
+        {
+            icon: '🚘',
+            title: 'Student Management',
+            description: 'Keep student information and driving lesson records organised.'
+        },
+        {
+            icon: '📊',
+            title: 'Reports & Analytics',
+            description: 'Access useful insights into bookings, attendance and learning progress.'
+        }
+    ];
+
+    const roles = [
+        {
+            icon: '🎓',
+            title: 'Students',
+            description: 'Book lessons, view schedules, monitor attendance and track your driving progress.'
+        },
+        {
+            icon: '🚗',
+            title: 'Driving Instructors',
+            description: 'Manage lesson schedules, monitor students and record practical driving sessions.'
+        },
+        {
+            icon: '🛡️',
+            title: 'Administrators',
+            description: 'Manage students, instructors, bookings and overall driving school activities.'
+        }
+    ];
+
     return (
         <div className="app">
 
             {/* Navigation */}
             <nav className="navbar">
-                <a href="/" className="logo">
+
+                <a href="#home" className="logo" onClick={closeMenu}>
                     <span className="logo-icon">S</span>
-                    SmartDrive
+                    <span>Smart<span className="logo-highlight">Drive</span></span>
                 </a>
 
-                <div className="nav-links">
-                    <a href="#home">Home</a>
-                    <a href="#features">Features</a>
-                    <a href="#about">About</a>
+                <button
+                    className="menu-toggle"
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    aria-label="Toggle navigation"
+                    aria-expanded={menuOpen}
+                >
+                    {menuOpen ? '✕' : '☰'}
+                </button>
+
+                <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
+                    <a href="#home" onClick={closeMenu}>Home</a>
+                    <a href="#features" onClick={closeMenu}>Features</a>
+                    <a href="#roles" onClick={closeMenu}>User Roles</a>
+                    <a href="#about" onClick={closeMenu}>About</a>
                 </div>
 
                 <a href="#login" className="login-button">
                     Sign In
                 </a>
+
             </nav>
 
-            {/* Hero Section */}
             <main>
+
+                {/* Hero Section */}
                 <section className="hero" id="home">
 
                     <div className="hero-content">
-            <span className="tagline">
-              YOUR JOURNEY STARTS HERE
-            </span>
+
+                        <span className="tagline">
+                            YOUR JOURNEY STARTS HERE
+                        </span>
 
                         <h1>
                             Learn to Drive.
@@ -40,94 +110,215 @@ function App() {
                         <p>
                             SmartDrive makes driving school management
                             simpler. Manage lessons, track your progress
-                            and stay connected with your driving instructor.
+                            and stay connected with your driving instructor
+                            through one convenient platform.
                         </p>
 
                         <div className="hero-actions">
                             <a href="#login" className="primary-button">
-                                Get Started
+                                Get Started →
                             </a>
 
                             <a href="#features" className="secondary-button">
                                 Explore Features
                             </a>
                         </div>
+
+                        <div className="hero-trust">
+                            <span>✓ Easy lesson management</span>
+                            <span>✓ Progress tracking</span>
+                        </div>
+
                     </div>
 
                     <div className="hero-visual">
-                        <div className="car-icon">🚘</div>
+
+                        <div className="hero-circle"></div>
+
+                        <div className="car-illustration">
+                            🚘
+                        </div>
+
                         <div className="visual-card">
-                            <span>SMARTDRIVE</span>
+                            <span>WELCOME TO SMARTDRIVE</span>
                             <h2>Your Road to Success</h2>
                             <p>Learn. Practise. Progress.</p>
                         </div>
+
                     </div>
+
+                </section>
+
+                {/* Introduction */}
+                <section className="intro-section" id="about">
+
+                    <span className="section-label">ABOUT SMARTDRIVE</span>
+
+                    <h2>Driving School Management, Simplified.</h2>
+
+                    <p>
+                        SmartDrive is designed to bring students,
+                        driving instructors and administrators together.
+                        Our platform makes it easier to organise driving
+                        lessons, manage attendance and monitor learning progress.
+                    </p>
 
                 </section>
 
                 {/* Features */}
                 <section className="features" id="features">
+
                     <div className="section-heading">
-                        <span>WHAT WE OFFER</span>
-                        <h2>Everything in One Place</h2>
+
+                        <span className="section-label">WHAT WE OFFER</span>
+
+                        <h2>Everything You Need in One Place</h2>
+
                         <p>
-                            A simpler way to manage your driving school experience.
+                            Powerful tools designed to simplify
+                            your driving school experience.
                         </p>
+
                     </div>
 
                     <div className="feature-grid">
 
-                        <div className="feature-card">
-                            <div className="feature-icon">📅</div>
-                            <h3>Lesson Bookings</h3>
-                            <p>
-                                Request driving lessons and keep track
-                                of your scheduled sessions.
-                            </p>
+                        {features.map((feature, index) => (
+                            <div className="feature-card" key={index}>
+
+                                <div className="feature-icon">
+                                    {feature.icon}
+                                </div>
+
+                                <h3>{feature.title}</h3>
+
+                                <p>{feature.description}</p>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                </section>
+
+                {/* User Roles */}
+                <section className="roles-section" id="roles">
+
+                    <div className="section-heading">
+
+                        <span className="section-label">WHO IS IT FOR?</span>
+
+                        <h2>One Platform. Three User Roles.</h2>
+
+                        <p>
+                            SmartDrive connects everyone involved
+                            in the driving school experience.
+                        </p>
+
+                    </div>
+
+                    <div className="roles-grid">
+
+                        {roles.map((role, index) => (
+                            <div className="role-card" key={index}>
+
+                                <div className="role-icon">
+                                    {role.icon}
+                                </div>
+
+                                <h3>{role.title}</h3>
+
+                                <p>{role.description}</p>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                </section>
+
+                {/* How It Works */}
+                <section className="how-section">
+
+                    <div className="section-heading">
+
+                        <span className="section-label">HOW IT WORKS</span>
+
+                        <h2>Your Driving Journey, Made Easier</h2>
+
+                    </div>
+
+                    <div className="steps-grid">
+
+                        <div className="step">
+                            <span>01</span>
+                            <h3>Get Started</h3>
+                            <p>Access the platform through your registered account.</p>
                         </div>
 
-                        <div className="feature-card">
-                            <div className="feature-icon">📋</div>
-                            <h3>Digital Attendance</h3>
-                            <p>
-                                Record practical lessons and access
-                                attendance history.
-                            </p>
+                        <div className="step">
+                            <span>02</span>
+                            <h3>Manage Lessons</h3>
+                            <p>Organise bookings and driving lesson schedules.</p>
                         </div>
 
-                        <div className="feature-card">
-                            <div className="feature-icon">📈</div>
-                            <h3>Learning Progress</h3>
-                            <p>
-                                Follow your practical driving progress
-                                and completed lessons.
-                            </p>
+                        <div className="step">
+                            <span>03</span>
+                            <h3>Track Progress</h3>
+                            <p>Monitor attendance and follow your driving development.</p>
                         </div>
 
                     </div>
+
                 </section>
 
-                {/* Login section placeholder */}
+                {/* Login Placeholder */}
                 <section className="login-section" id="login">
-                    <h2>Welcome to SmartDrive</h2>
+
+                    <span className="section-label">GET STARTED</span>
+
+                    <h2>Ready to Start Your Journey?</h2>
+
                     <p>
-                        Your driving school management platform.
+                        Join SmartDrive and experience a simpler
+                        way to manage your driving school activities.
                     </p>
+
                     <p className="coming-soon">
-                        User login and registration coming soon.
+                        Account registration and login coming soon.
                     </p>
+
                 </section>
 
             </main>
 
             {/* Footer */}
             <footer>
-                <p>© 2026 SmartDrive. All rights reserved.</p>
-                <p>Driving Progress Through Technology.</p>
+
+                <div className="footer-brand">
+                    <a href="#home" className="logo footer-logo">
+                        <span className="logo-icon">S</span>
+                        <span>Smart<span className="logo-highlight">Drive</span></span>
+                    </a>
+
+                    <p>Driving Progress Through Technology.</p>
+                </div>
+
+                <div className="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#roles">User Roles</a>
+                    <a href="#about">About</a>
+                </div>
+
+                <p className="copyright">
+                    © 2026 SmartDrive. All rights reserved.
+                </p>
+
             </footer>
 
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
